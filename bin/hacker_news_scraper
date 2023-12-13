@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative '../lib/hacker_news_scraper'
+require 'byebug'
+
+def main_menu
+  puts 'HackerNews Scraper'
+  puts '1. Scrape without filters'
+  puts '2. Apply filters'
+  puts '3. Exit'
+  print 'Enter your choice: '
+  gets.chomp.to_i
+end
+
+def apply_filters(_scraper)
+  puts 'Filter Options:'
+  puts '1. Filter by title length'
+  puts '2. Order by comments'
+  puts '3. Order by points'
+end
+
+scraper = HackerNewsScraper.new
+
+loop do
+  choice = main_menu
+
+  case choice
+  when 1
+    scraper.scrape
+    puts scraper.entries
+  when 2
+    apply_filters(scraper)
+  when 3
+    puts 'Exiting...'
+    break
+  else
+    puts 'Invalid option. Please try again.'
+  end
+end

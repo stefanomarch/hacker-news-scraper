@@ -5,7 +5,7 @@ require_relative '../../lib/hacker_news_scraper'
 
 RSpec.describe HackerNewsScraper do
   describe '#initialize' do
-    it 'is a HNScraper' do
+    it 'is a HackerNewsScraper' do
       expect(HackerNewsScraper.new).to be_a(HackerNewsScraper)
     end
   end

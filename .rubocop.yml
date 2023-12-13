@@ -2,8 +2,5 @@ AllCops:
   NewCops: enable
   SuggestExtensions: false
 Metrics/MethodLength:
-  Max: 15
-  Exclude:
-Metrics/AbcSize:
-  Max: 20
+  Max: 12
   Exclude:
