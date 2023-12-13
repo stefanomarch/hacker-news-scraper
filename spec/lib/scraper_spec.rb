@@ -7,7 +7,7 @@ HACKER_NEWS_FIXTURE_PATH = File.expand_path('../fixtures/hacker_rank_source.html
 
 describe Scraper do
   let(:html_content) { File.read(HACKER_NEWS_FIXTURE_PATH) }
-  let(:parsed_document) { Scraper.parse_html(html_content) }
+  let(:parsed_document) { described_class.parse_html(html_content) }
 
   describe '.fetch_data' do
     it 'fetches HTML content that is not empty' do
