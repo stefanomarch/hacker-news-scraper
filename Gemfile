@@ -6,8 +6,9 @@ source 'https://rubygems.org'
 
 source 'https://rubygems.org'
 
+gem 'byebug'
 gem 'httparty'
 gem 'nokogiri'
 gem 'rspec'
 gem 'rubocop'
-gem 'rubocop-rspec'
+gem 'rubocop-rspec', require: false
