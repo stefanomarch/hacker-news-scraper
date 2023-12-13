@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require_relative '../lib/hacker_news_scraper'
+require_relative '../../lib/hacker_news_scraper'
 
 RSpec.describe HackerNewsScraper do
   describe '#initialize' do
