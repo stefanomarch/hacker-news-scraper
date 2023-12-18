@@ -2,8 +2,10 @@
 # frozen_string_literal: true
 
 require_relative '../lib/hacker_news_scraper'
+require_relative '../lib/filters/title_length_filter'
 require 'byebug'
 
+# ------------- user input methods -------------
 def main_menu
   puts 'HackerNews Scraper'
   puts '1. Scrape without filters'
@@ -13,24 +15,44 @@ def main_menu
   gets.chomp.to_i
 end
 
-def apply_filters(_scraper)
+def filters_menu
   puts 'Filter Options:'
-  puts '1. Filter by title length'
-  puts '2. Order by comments'
-  puts '3. Order by points'
+  puts '1. Filter entries with more than five words in the title ordered by the number of comments first.'
+  puts '2. Filter entries with less than or equal to five words in the title ordered by points'
+  puts '3. Exit'
+  gets.chomp.to_i
 end
 
-scraper = HackerNewsScraper.new
+def filter_program(filter_choice, entries)
+  loop do
+    case filter_choice
+    when 1
+      return Filters::TitleLengthFilter.call(entries, :>, 5)
+    when 2
+      return Filters::TitleLengthFilter.call(entries, :<=, 5)
+    when 3
+      puts 'Exiting...'
+      return nil
+    else
+      puts 'Invalid option. Please try again.'
+    end
+  end
+end
 
+# --------- main program ------------
 loop do
-  choice = main_menu
+  main_menu_choice = main_menu
+  scraper = HackerNewsScraper.new
+  scraper.scrape
+  entries = scraper.entries
 
-  case choice
+  case main_menu_choice
   when 1
-    scraper.scrape
-    puts scraper.entries
+    puts entries
   when 2
-    apply_filters(scraper)
+    filter_choice = filters_menu
+    result = filter_program(filter_choice, entries)
+    puts result
   when 3
     puts 'Exiting...'
     break

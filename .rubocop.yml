@@ -4,5 +4,5 @@ AllCops:
   NewCops: enable
   SuggestExtensions: false
 Metrics/MethodLength:
-  Max: 12
+  Max: 13
   Exclude:
