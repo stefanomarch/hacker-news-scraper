@@ -25,21 +25,21 @@ class HackerNewsScraper
 
       subtext = indexed_row.next_element
       points = subtext.css('span.score').text.to_i
-      comments = subtext.css('a').last.text.to_i
+      n_of_comments = subtext.css('a').last.text.to_i
 
-      entries << entry_hash(comments, points, rank, title)
+      entries << entry_hash(n_of_comments, points, rank, title)
     end
   end
   # rubocop:enable Metrics/AbcSize
 
   private
 
-  def entry_hash(comments, points, rank, title)
+  def entry_hash(n_of_comments, points, rank, title)
     {
-      rank: rank,
-      title: title,
-      points: points,
-      n_of_comments: comments
+      rank:,
+      title:,
+      points:,
+      n_of_comments:
     }
   end
 end
