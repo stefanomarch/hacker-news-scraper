@@ -10,6 +10,7 @@ source 'https://rubygems.org'
 gem 'byebug'
 gem 'httparty'
 gem 'nokogiri'
+gem 'open3'
 gem 'rspec'
 gem 'rubocop'
 gem 'rubocop-rspec', require: false

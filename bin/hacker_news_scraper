@@ -66,12 +66,14 @@ end
 
 def filter_by_title_length_greater_than_five_and_order_by_comments(scraper)
   scraper.filtered_entries_by_title_ordered_by_n_of_comments ||
-    Filters::TitleLengthFilter.call(scraper.entries, :>, 5).sort_by { |entry| entry[:n_of_comments] }.reverse
+    Filters::TitleLengthFilter.call(scraper.entries, :>, 5)
+                              .sort_by { |entry| entry[:n_of_comments] }.reverse
 end
 
 def filter_by_title_length_less_or_equal_than_five_and_order_by_points(scraper)
   scraper.filtered_entries_by_title_ordered_by_points ||
-    Filters::TitleLengthFilter.call(scraper.entries, :<=, 5).sort_by { |entry| entry[:points] }.reverse
+    Filters::TitleLengthFilter.call(scraper.entries, :<=, 5)
+                              .sort_by { |entry| entry[:points] }.reverse
 end
 
 def handle_invalid_option
