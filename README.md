@@ -3,6 +3,8 @@
 Hacker News Scraper is a simple Ruby program that scrapes news entries from Hacker News and provides functionality for
 filtering the results.
 
+**[hacker_news_scaper.mov](..%2F..%2FDesktop%2FVideo%20OBS%2Fhacker_news_scaper.mov)**
+
 ## Requirements
 
 - Ruby 3.2.2 or higher
@@ -54,6 +56,14 @@ Filter Options:
 2. Filter entries with less than or equal to five words in the title ordered by points
 3. Exit
 ```
-## Video Example
 
-[hacker_news_scaper.mov](..%2F..%2FDesktop%2FVideo%20OBS%2Fhacker_news_scaper.mov)
+## Tests
+To run the test suite execute the following command:
+```sh
+bundle exec rspec
+```
+
+Test Style with Rubocop:
+```sh
+bundle exec rubocop
+```
