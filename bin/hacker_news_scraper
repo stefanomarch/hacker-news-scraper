@@ -4,7 +4,32 @@
 require_relative '../lib/hacker_news_scraper'
 require_relative '../lib/filters/title_length_filter'
 
-require 'byebug'
+# rubocop:disable Metrics/MethodLength
+def run
+  loop do
+    scraper = HackerNewsScraper.new
+    scraper.scrape
+    entries = scraper.entries
+    main_menu_user_choice = main_menu
+
+    case main_menu_user_choice
+    when 1
+      puts entries
+    when 2
+      filter_user_choice = filters_menu
+      result = filter_program(filter_user_choice, scraper)
+      puts result
+    when 3
+      puts 'Exiting...'
+      exit
+    else
+      puts 'Invalid option. Please try again.'
+    end
+  end
+end
+# rubocop:enable Metrics/MethodLength
+
+private
 
 # ------------- user input methods -------------
 def main_menu
@@ -24,40 +49,34 @@ def filters_menu
   gets.chomp.to_i
 end
 
-def filter_program(filter_choice, entries)
-  loop do
-    case filter_choice
-    when 1
-      return Filters::TitleLengthFilter.call(entries, :>, 5).sort_by { |entry| entry[:n_of_comments] }.reverse
-    when 2
-      return Filters::TitleLengthFilter.call(entries, :<=, 5).sort_by { |entry| entry[:points] }.reverse
-    when 3
-      puts 'Exiting...'
-      return nil
-    else
-      puts 'Invalid option. Please try again.'
-    end
-  end
-end
-
-# --------- main program ------------
-loop do
-  main_menu_user_choice = main_menu
-  scraper = HackerNewsScraper.new
-  scraper.scrape
-  entries = scraper.entries
-
-  case main_menu_user_choice
+# ------------- filters program -------------
+def filter_program(filter_choice, scraper)
+  case filter_choice
   when 1
-    puts entries
+    filter_by_title_length_greater_than_five_and_order_by_comments(scraper)
   when 2
-    filter_user_choice = filters_menu
-    result = filter_program(filter_user_choice, entries)
-    puts result
+    filter_by_title_length_less_or_equal_than_five_and_order_by_points(scraper)
   when 3
     puts 'Exiting...'
-    break
+    exit
   else
-    puts 'Invalid option. Please try again.'
+    handle_invalid_option
   end
 end
+
+def filter_by_title_length_greater_than_five_and_order_by_comments(scraper)
+  scraper.filtered_entries_by_title_ordered_by_n_of_comments ||
+    Filters::TitleLengthFilter.call(scraper.entries, :>, 5).sort_by { |entry| entry[:n_of_comments] }.reverse
+end
+
+def filter_by_title_length_less_or_equal_than_five_and_order_by_points(scraper)
+  scraper.filtered_entries_by_title_ordered_by_points ||
+    Filters::TitleLengthFilter.call(scraper.entries, :<=, 5).sort_by { |entry| entry[:points] }.reverse
+end
+
+def handle_invalid_option
+  puts 'Invalid option. Please try again.'
+  nil
+end
+
+run

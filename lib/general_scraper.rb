@@ -3,8 +3,8 @@
 require 'httparty'
 require 'nokogiri'
 
-# This class is responsible for fetching and parsing the HTML document from Hacker News
-class Scraper
+# This class is responsible for fetching and parsing the HTML document from any URL
+class GeneralScraper
   def self.fetch_data(url)
     response = HTTParty.get(url)
     response.body if response.code == 200

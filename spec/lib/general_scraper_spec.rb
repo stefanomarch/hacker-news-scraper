@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require_relative '../../lib/scraper'
+require_relative '../../lib/general_scraper'
 
 HACKER_NEWS_FIXTURE_PATH = File.expand_path('../fixtures/hacker_rank_source.html', __dir__)
 
-describe Scraper do
+describe GeneralScraper do
   let(:html_content) { File.read(HACKER_NEWS_FIXTURE_PATH) }
   let(:parsed_document) { described_class.parse_html(html_content) }
 

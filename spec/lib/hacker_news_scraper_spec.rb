@@ -8,16 +8,16 @@ HACKER_NEWS_FIXTURE_PATH = File.expand_path('../fixtures/hacker_rank_source.html
 RSpec.describe HackerNewsScraper do
   describe '#scrape' do
     let(:html_fixture) { File.read(HACKER_NEWS_FIXTURE_PATH) }
+    let(:hacker_news_scraper) { described_class.new }
 
     before do
-      allow(Scraper).to receive(:fetch_data).and_return(html_fixture)
-      allow(Scraper).to receive(:parse_html).with(html_fixture).and_call_original
+      allow(GeneralScraper).to receive(:fetch_data).and_return(html_fixture)
+      allow(GeneralScraper).to receive(:parse_html).with(html_fixture).and_call_original
+      hacker_news_scraper.scrape
     end
 
     it 'fills entries with up to 30 items' do
-      scraper = described_class.new
-      scraper.scrape
-      expect(scraper.entries.size).to be <= 30
+      expect(hacker_news_scraper.entries.size).to be <= 30
     end
 
     context 'when examining the first entry' do
@@ -37,6 +37,30 @@ RSpec.describe HackerNewsScraper do
 
       it 'extracts number of comments as an Integer' do
         expect(first_entry[:n_of_comments]).to be_a(Integer)
+      end
+    end
+
+    describe 'filtered entries by title ordered by number of comments' do
+      it 'eventually fills the filtered_entries_by_title_ordered_by_n_of_comments' do
+        sleep 1
+        expect(hacker_news_scraper.filtered_entries_by_title_ordered_by_n_of_comments).not_to be_nil
+      end
+
+      it 'ensures the filtered_entries_by_title_ordered_by_n_of_comments is not empty' do
+        sleep 1
+        expect(hacker_news_scraper.filtered_entries_by_title_ordered_by_n_of_comments).not_to be_empty
+      end
+    end
+
+    describe 'filtered entries by title ordered by points' do
+      it 'eventually fills the filtered_entries_by_title_ordered_by_points' do
+        sleep 1
+        expect(hacker_news_scraper.filtered_entries_by_title_ordered_by_points).not_to be_nil
+      end
+
+      it 'ensures the filtered_entries_by_title_ordered_by_points is not empty' do
+        sleep 1
+        expect(hacker_news_scraper.filtered_entries_by_title_ordered_by_points).not_to be_empty
       end
     end
   end
