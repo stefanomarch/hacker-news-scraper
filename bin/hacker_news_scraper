@@ -3,6 +3,8 @@
 
 require_relative '../lib/hacker_news_scraper'
 require_relative '../lib/filters/title_length_filter'
+require_relative '../lib/entries_repository'
+
 require 'byebug'
 
 # ------------- user input methods -------------
@@ -27,9 +29,9 @@ def filter_program(filter_choice, entries)
   loop do
     case filter_choice
     when 1
-      return Filters::TitleLengthFilter.call(entries, :>, 5)
+      return Filters::TitleLengthFilter.call(entries, :>, 5).sort_by { |entry| entry[:n_of_comments] }.reverse
     when 2
-      return Filters::TitleLengthFilter.call(entries, :<=, 5)
+      return Filters::TitleLengthFilter.call(entries, :<=, 5).sort_by { |entry| entry[:points] }.reverse
     when 3
       puts 'Exiting...'
       return nil
@@ -41,17 +43,17 @@ end
 
 # --------- main program ------------
 loop do
-  main_menu_choice = main_menu
+  main_menu_user_choice = main_menu
   scraper = HackerNewsScraper.new
   scraper.scrape
   entries = scraper.entries
 
-  case main_menu_choice
+  case main_menu_user_choice
   when 1
     puts entries
   when 2
-    filter_choice = filters_menu
-    result = filter_program(filter_choice, entries)
+    filter_user_choice = filters_menu
+    result = filter_program(filter_user_choice, entries)
     puts result
   when 3
     puts 'Exiting...'
