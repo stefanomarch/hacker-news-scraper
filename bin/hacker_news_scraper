@@ -3,7 +3,6 @@
 
 require_relative '../lib/hacker_news_scraper'
 require_relative '../lib/filters/title_length_filter'
-require_relative '../lib/entries_repository'
 
 require 'byebug'
 
