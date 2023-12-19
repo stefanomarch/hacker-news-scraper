@@ -50,6 +50,14 @@ RSpec.describe HackerNewsScraper do
         sleep 1
         expect(hacker_news_scraper.filtered_entries_by_title_ordered_by_n_of_comments).not_to be_empty
       end
+
+      it 'orders entries correctly by number of comments' do
+        sleep 1
+        entries_ordered_by_comments = hacker_news_scraper.filtered_entries_by_title_ordered_by_n_of_comments
+        expect(entries_ordered_by_comments.each_cons(2).all? do |a, b|
+                 a[:n_of_comments] >= b[:n_of_comments]
+               end).to be true
+      end
     end
 
     describe 'filtered entries by title ordered by points' do
@@ -61,6 +69,12 @@ RSpec.describe HackerNewsScraper do
       it 'ensures the filtered_entries_by_title_ordered_by_points is not empty' do
         sleep 1
         expect(hacker_news_scraper.filtered_entries_by_title_ordered_by_points).not_to be_empty
+      end
+
+      it 'orders entries correctly by points' do
+        sleep 1
+        entries_ordered_by_points = hacker_news_scraper.filtered_entries_by_title_ordered_by_points
+        expect(entries_ordered_by_points.each_cons(2).all? { |a, b| a[:points] >= b[:points] }).to be true
       end
     end
   end
