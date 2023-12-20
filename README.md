@@ -67,3 +67,5 @@ Test Style with Rubocop:
 ```sh
 bundle exec rubocop
 ```
+## Design Decisions
+You can find a detailed description of the design decisions I made while building this application in the [DESIGN_DECISIONS.md](DESIGN_DECISIONS.md) file.
