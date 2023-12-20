@@ -3,7 +3,8 @@
 Hacker News Scraper is a simple Ruby program that scrapes news entries from Hacker News and provides functionality for
 filtering the results.
 
-**[hacker_news_scaper.mov](..%2F..%2FDesktop%2FVideo%20OBS%2Fhacker_news_scaper.mov)**
+https://github.com/stefanomarch/hacker-news-scraper/assets/71328181/9fbbbb58-7539-46bb-b0d7-5a51e495dd66
+
 
 ## Requirements
 
